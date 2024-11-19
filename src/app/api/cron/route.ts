@@ -54,7 +54,11 @@ export async function GET(req: NextRequest) {
   }
 
   // Delete all records from the weather table
-  const { error: deleteError } = await supabase.from("weather").delete();
+
+  const { error: deleteError } = await supabase
+    .from("weather")
+    .delete()
+    .eq("id", "*");
 
   if (deleteError) {
     return NextResponse.json({ ok: false });
