@@ -1,14 +1,13 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
 
+// * CRON job that runs daily
 export async function GET(req: NextRequest) {
   if (
     req.headers.get("Authorization") !== `Bearer ${process.env.CRON_SECRET}`
   ) {
     return NextResponse.json({ ok: false });
   }
-
-  // CRON job that runs daily
 
   // Create a Supabase client
   const supabase = createClient(
@@ -20,6 +19,7 @@ export async function GET(req: NextRequest) {
   const { data: weather, error } = await supabase.from("weather").select("*");
 
   if (error || !weather) {
+    console.log("Error fetching weather data", error);
     return NextResponse.json({ ok: false });
   }
 
@@ -29,6 +29,7 @@ export async function GET(req: NextRequest) {
     .select("*");
 
   if (meanMedianError) {
+    console.log("Error fetching mean median data", meanMedianError);
     return NextResponse.json({ ok: false });
   }
 
@@ -50,17 +51,18 @@ export async function GET(req: NextRequest) {
   ]);
 
   if (insertError) {
+    console.log("Error inserting daily weather data", insertError);
     return NextResponse.json({ ok: false });
   }
 
   // Delete all records from the weather table
-
   const { error: deleteError } = await supabase
     .from("weather")
     .delete()
-    .neq("id", "1");
+    .neq("temperature", "-999");
 
   if (deleteError) {
+    console.log("Error deleting weather data", deleteError);
     return NextResponse.json({ ok: false });
   }
 
