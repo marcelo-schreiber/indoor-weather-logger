@@ -58,7 +58,7 @@ export async function GET(req: NextRequest) {
   const { error: deleteError } = await supabase
     .from("weather")
     .delete()
-    .eq("id", "*");
+    .neq("id", "1");
 
   if (deleteError) {
     return NextResponse.json({ ok: false });
