@@ -1,13 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  Area,
-  CartesianGrid,
-  XAxis,
-  ComposedChart,
-  YAxis,
-} from "recharts";
+import { Area, CartesianGrid, XAxis, ComposedChart, YAxis } from "recharts";
 
 import {
   Card,
@@ -31,6 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { calculateHeatIndex } from "@/lib/heatIndex";
 
 const chartConfig = {
   temperature: {
@@ -160,13 +155,46 @@ export function Chart({
             <ChartTooltip
               content={
                 <ChartTooltipContent
+                  className="w-[180px]"
                   labelFormatter={(value) => {
                     return new Date(value).toLocaleDateString("pt-BR", {
                       month: "short",
                       day: "numeric",
                       hour: "numeric",
                       minute: "numeric",
+                      second: "numeric",
                     });
+                  }}
+                  formatter={(value, name, _, index) => {
+                    return (
+                      <>
+                        <div
+                          className="h-2.5 w-2.5 shrink-0 rounded-[2px] bg-[--color-bg]"
+                          style={
+                            {
+                              "--color-bg": `var(--color-${name})`,
+                            } as React.CSSProperties
+                          }
+                        />
+                        {chartConfig[name as keyof typeof chartConfig]?.label ||
+                          name}
+                        <div className="ml-auto flex items-baseline gap-0.5 font-mono font-medium tabular-nums text-foreground">
+                          {value}
+                        </div>
+                        {/* Add this after the last item */}
+                        {index === 1 && (
+                          <div className="mt-1.5 flex basis-full items-center border-t pt-1.5 text-xs font-medium text-foreground">
+                            Índice de calor (°C)
+                            <div className="ml-auto flex items-baseline gap-0.5 font-mono font-medium tabular-nums text-foreground">
+                              {calculateHeatIndex(
+                                filteredData[index].temperature,
+                                filteredData[index].humidity
+                              ).toFixed(2)}
+                            </div>
+                          </div>
+                        )}
+                      </>
+                    );
                   }}
                   indicator="dot"
                 />
