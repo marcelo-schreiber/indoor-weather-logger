@@ -1,6 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
 
+export const dynamic = 'force-dynamic';
+
 // * CRON job that runs daily
 export async function GET(req: NextRequest) {
   if (

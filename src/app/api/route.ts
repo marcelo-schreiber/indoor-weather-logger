@@ -1,6 +1,8 @@
 import type { NextRequest } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
+export const dynamic = 'force-dynamic';
+
 export async function POST(request: NextRequest) {
   if (request.headers.get("content-type") !== "application/json") {
     return new Response("Invalid content type", { status: 400 });
