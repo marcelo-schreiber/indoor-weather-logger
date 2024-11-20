@@ -165,7 +165,7 @@ export function Chart({
                       second: "numeric",
                     });
                   }}
-                  formatter={(value, name, _, index) => {
+                  formatter={(value, name, item, index) => {
                     return (
                       <>
                         <div
@@ -187,8 +187,8 @@ export function Chart({
                             Índice de calor (°C)
                             <div className="ml-auto flex items-baseline gap-0.5 font-mono font-medium tabular-nums text-foreground">
                               {calculateHeatIndex(
-                                filteredData[index].temperature,
-                                filteredData[index].humidity
+                                item.payload.temperature,
+                                item.payload.humidity
                               ).toFixed(2)}
                             </div>
                           </div>
