@@ -2,12 +2,7 @@
 
 import { Chart } from "@/components/chart/tempAndHumidity";
 import { createClient } from "@/lib/supabase";
-import dynamic from "next/dynamic";
-const NoSSRWeatherCard = dynamic(
-  () => import("@/components/card/latestTempAndHumidity"),
-  { ssr: false },
-);
-
+import WeatherCard from "@/components/card/latestTempAndHumidity";
 export default async function Home() {
   const supabase = await createClient();
 
@@ -35,7 +30,7 @@ export default async function Home() {
         }
       />
       <div className="flex justify-center mt-10">
-        <NoSSRWeatherCard
+        <WeatherCard
           humidity={latestTempAndHumidity.humidity}
           temperature={latestTempAndHumidity.temperature}
           lastUpdated={latestTempAndHumidity.created_at}
