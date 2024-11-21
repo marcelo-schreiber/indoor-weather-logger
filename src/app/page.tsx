@@ -50,7 +50,7 @@ export default async function Home() {
           lastUpdated={latestTempAndHumidity.created_at}
         />
         <WeatherCard
-          title="Leitura média"
+          title="Leitura média do dia"
           humidity={meanTempAndHumidity.humidity}
           temperature={meanTempAndHumidity.temperature}
           lastUpdated={latestTempAndHumidity.created_at}

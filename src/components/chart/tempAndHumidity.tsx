@@ -83,7 +83,7 @@ export function Chart({
               Hoje
             </SelectItem>
             <SelectItem value="daily" className="rounded-lg">
-              Diário
+              Média Diária
             </SelectItem>
           </SelectContent>
         </Select>
