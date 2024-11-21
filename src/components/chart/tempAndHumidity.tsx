@@ -40,8 +40,14 @@ const chartConfig = {
 
 export function Chart({
   chartData,
+  dailyData,
 }: {
   chartData: {
+    created_at: string;
+    humidity: number;
+    temperature: number;
+  }[];
+  dailyData: {
     created_at: string;
     humidity: number;
     temperature: number;
@@ -49,19 +55,14 @@ export function Chart({
 }) {
   const [timeRange, setTimeRange] = React.useState("today");
 
-  const filteredData = chartData.filter((item) => {
-    const date = new Date(item.created_at);
-    const now = new Date();
-    const diff = now.getTime() - date.getTime();
-
-    if (timeRange === "today") {
-      return diff < 24 * 60 * 60 * 1000;
-    } else if (timeRange === "7d") {
-      return diff < 7 * 24 * 60 * 60 * 1000;
-    } else if (timeRange === "all") {
-      return true;
+  const filteredData = React.useMemo(() => {
+    switch (timeRange) {
+      case "today":
+        return chartData;
+      case "daily":
+        return dailyData;
     }
-  });
+  }, [timeRange, chartData, dailyData]);
 
   return (
     <Card>
@@ -81,11 +82,8 @@ export function Chart({
             <SelectItem value="today" className="rounded-lg">
               Hoje
             </SelectItem>
-            <SelectItem value="7d" className="rounded-lg">
-              Últimos 7 dias
-            </SelectItem>
-            <SelectItem value="all" className="rounded-lg">
-              Todos
+            <SelectItem value="daily" className="rounded-lg">
+              Diário
             </SelectItem>
           </SelectContent>
         </Select>
@@ -127,11 +125,20 @@ export function Chart({
               dataKey="created_at"
               tickLine={true}
               axisLine={false}
-              tickMargin={8}
-              minTickGap={32}
+              tickMargin={5}
+              minTickGap={25}
               tickFormatter={(value) => {
-                // just show the time
-                return new Date(value).toLocaleTimeString("pt-BR");
+                if (timeRange === "today") {
+                  return new Date(value).toLocaleTimeString("pt-BR", {
+                    hour: "numeric",
+                    minute: "numeric",
+                  });
+                }
+
+                return new Date(value).toLocaleDateString("pt-BR", {
+                  month: "short",
+                  day: "numeric",
+                });
               }}
             />
             <YAxis
@@ -188,7 +195,7 @@ export function Chart({
                             <div className="ml-auto flex items-baseline gap-0.5 font-mono font-medium tabular-nums text-foreground">
                               {calculateHeatIndex(
                                 item.payload.temperature,
-                                item.payload.humidity,
+                                item.payload.humidity
                               ).toFixed(2)}
                             </div>
                           </div>

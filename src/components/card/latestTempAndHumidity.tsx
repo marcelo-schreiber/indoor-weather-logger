@@ -6,17 +6,19 @@ interface WeatherCardProps {
   temperature: number;
   humidity: number;
   lastUpdated: string;
+  title: string;
 }
 
 export default function WeatherCard({
   temperature,
   humidity,
   lastUpdated,
+  title,
 }: WeatherCardProps) {
   return (
     <Card className="w-full max-w-md">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold">Clima Atual</CardTitle>
+        <CardTitle className="text-2xl font-bold">{title}</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-2 gap-4">
@@ -51,7 +53,10 @@ export default function WeatherCard({
           </div>
         </div>
         <p className="mt-4 text-sm text-muted-foreground">
-          Última atualização: {new Date(lastUpdated).toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"})}
+          Última atualização:{" "}
+          {new Date(lastUpdated).toLocaleString("pt-BR", {
+            timeZone: "America/Sao_Paulo",
+          })}
         </p>
       </CardContent>
     </Card>
