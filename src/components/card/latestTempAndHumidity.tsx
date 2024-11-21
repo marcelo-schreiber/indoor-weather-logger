@@ -54,7 +54,7 @@ export default function WeatherCard({
           </div>
         </div>
         <p className="mt-4 text-sm text-muted-foreground">
-          Última atualização: {new Date(lastUpdated).toLocaleString("pt-BR")}
+          Última atualização: {new Date(lastUpdated).toLocaleString("pt-BR", {timeZone: "America/Sao_Paulo"})}
         </p>
       </CardContent>
     </Card>
