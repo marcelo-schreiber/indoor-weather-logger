@@ -1,5 +1,3 @@
-"use client";
-
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { calculateHeatIndex } from "@/lib/heatIndex";
 import { Thermometer, Droplets, Flame } from "lucide-react";
@@ -15,7 +13,6 @@ export default function WeatherCard({
   humidity,
   lastUpdated,
 }: WeatherCardProps) {
-  console.log(lastUpdated);
   return (
     <Card className="w-full max-w-md">
       <CardHeader>
