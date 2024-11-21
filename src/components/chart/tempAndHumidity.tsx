@@ -188,7 +188,7 @@ export function Chart({
                             <div className="ml-auto flex items-baseline gap-0.5 font-mono font-medium tabular-nums text-foreground">
                               {calculateHeatIndex(
                                 item.payload.temperature,
-                                item.payload.humidity
+                                item.payload.humidity,
                               ).toFixed(2)}
                             </div>
                           </div>

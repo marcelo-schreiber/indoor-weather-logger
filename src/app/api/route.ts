@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
   if (request.headers.get("content-type") !== "application/json") {
@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
 
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
   );
 
   const { error } = await supabase.from("weather").insert([

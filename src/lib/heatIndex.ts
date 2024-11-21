@@ -1,4 +1,7 @@
-export function calculateHeatIndex(temperature: number, humidity: number): number {
+export function calculateHeatIndex(
+  temperature: number,
+  humidity: number,
+): number {
   const c1 = -8.78469475556;
   const c2 = 1.61139411;
   const c3 = 2.33854883889;
