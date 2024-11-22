@@ -3,18 +3,20 @@
 import { Chart } from "@/components/chart/tempAndHumidity";
 import { createClient } from "@/lib/supabase";
 import WeatherCard from "@/components/card/latestTempAndHumidity";
+
+type WeatherData = {
+  created_at: string;
+  temperature: number;
+  humidity: number;
+}[];
+
 export default async function Home() {
   const supabase = await createClient();
 
-  const { data: allData, error: errorAllData } = await supabase
-    .from("weather_view")
-    .select("*")
-    .order("created_at", { ascending: true });
-
-  const { data: dailyData, error: errorDailyData } = await supabase
-    .from("weather_daily_with_today")
-    .select("*")
-    .order("created_at", { ascending: true });
+  const [{ data: allData, error: errorAllData }, { data: dailyData, error: errorDailyData }] = await Promise.all([
+    supabase.from("weather_view").select("*").order("created_at", { ascending: true }),
+    supabase.from("weather_daily_with_today").select("*").order("created_at", { ascending: true })
+  ]);
 
   if (errorAllData || errorDailyData) {
     console.error(errorAllData || errorDailyData);
@@ -27,20 +29,8 @@ export default async function Home() {
   return (
     <main className="flex flex-col justify-center px-10 pt-10">
       <Chart
-        chartData={
-          allData as {
-            created_at: string;
-            temperature: number;
-            humidity: number;
-          }[]
-        }
-        dailyData={
-          dailyData as {
-            created_at: string;
-            temperature: number;
-            humidity: number;
-          }[]
-        }
+        chartData={allData as WeatherData}
+        dailyData={dailyData as WeatherData}
       />
       <div className="flex justify-center mt-10 gap-5">
         <WeatherCard
