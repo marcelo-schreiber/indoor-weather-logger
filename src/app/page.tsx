@@ -32,7 +32,7 @@ export default async function Home() {
         chartData={allData as WeatherData}
         dailyData={dailyData as WeatherData}
       />
-      <div className="flex justify-center mt-10 gap-5">
+      <div className="flex justify-center mt-10 gap-5 flex-col md:flex-row items-center">
         <WeatherCard
           title="Última Leitura"
           humidity={latestTempAndHumidity.humidity}
