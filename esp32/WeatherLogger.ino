@@ -45,7 +45,6 @@ void loop() {
   
   delay(2000);
 
-  //Send an HTTP POST request every 10 minutes
   if ((millis() - lastTime) > timerDelay && client) {
     float h = dht.readHumidity();
 
@@ -80,7 +79,7 @@ void loop() {
         Serial.print("Error code: ");
         Serial.println(httpResponseCode);
       }
-      
+
       // Free resources
       https.end();
     } else {
