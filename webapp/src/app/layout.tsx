@@ -15,7 +15,7 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: "Estação Meteorológica",
-  description: "Acompanhe a temperatura e umidade em tempo real",
+  description: "Acompanhe a temperatura e umidade"
 };
 
 export default function RootLayout({
