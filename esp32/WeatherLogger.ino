@@ -38,14 +38,13 @@ void setup() {
   Serial.println("");
   Serial.print("Connected to WiFi network with IP Address: ");
   Serial.println(WiFi.localIP());
-
-  Serial.println("Timer set to 5 seconds (timerDelay variable), it will take 5 seconds before publishing the first reading.");
 }
 
 void loop() {
   WiFiClientSecure *client = new WiFiClientSecure;
   
   delay(2000);
+
   //Send an HTTP POST request every 10 minutes
   if ((millis() - lastTime) > timerDelay && client) {
     float h = dht.readHumidity();
@@ -68,7 +67,6 @@ void loop() {
       https.addHeader("Content-Type", "application/json");
 
       String jsonRequest = "{\"apiKey\":\"" + String(api_key) + "\",\"temperature\":" + String(t) + ",\"humidity\":" + String(h) + "}";
-      // String jsonRequest = "{\"title\":\"foo\",\"body\": \"bar\", \"userId\": 1 }";
 
       // Send HTTP GET request
       int httpResponseCode = https.POST(jsonRequest);
@@ -82,6 +80,7 @@ void loop() {
         Serial.print("Error code: ");
         Serial.println(httpResponseCode);
       }
+      
       // Free resources
       https.end();
     } else {
