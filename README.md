@@ -40,6 +40,15 @@ The system architecture is illustrated below:
 
 ### ESP32 Setup
 
+0. **Hardware Setup**:
+   - Connect the DHT22 sensor to the ESP32 board as follows:
+     - VCC -> 3.3V
+     - GND -> GND
+     - DATA -> 15 (DHT_PIN)
+  
+     - Connect the ESP32 board to your computer using a USB cable.
+    [![ESP32 DHT22 Wiring](docs/circuit.png)](docs/circuit.png)
+
 1. Install the required libraries in the Arduino IDE:
    - [DHT Sensor Library](https://github.com/adafruit/DHT-sensor-library)
    - [WiFi](https://www.arduino.cc/en/Reference/WiFi)
