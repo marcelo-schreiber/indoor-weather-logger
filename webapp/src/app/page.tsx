@@ -13,9 +13,18 @@ type WeatherData = {
 export default async function Home() {
   const supabase = await createClient();
 
-  const [{ data: allData, error: errorAllData }, { data: dailyData, error: errorDailyData }] = await Promise.all([
-    supabase.from("weather_view").select("*").order("created_at", { ascending: true }),
-    supabase.from("weather_daily_with_today").select("*").order("created_at", { ascending: true })
+  const [
+    { data: allData, error: errorAllData },
+    { data: dailyData, error: errorDailyData },
+  ] = await Promise.all([
+    supabase
+      .from("weather")
+      .select("*")
+      .order("created_at", { ascending: true }),
+    supabase
+      .from("weather_daily_with_today")
+      .select("*")
+      .order("created_at", { ascending: true }),
   ]);
 
   if (errorAllData || errorDailyData) {
