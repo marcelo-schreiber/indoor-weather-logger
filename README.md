@@ -1,7 +1,7 @@
 # Weather Logger System
 
 [![MIT License](https://img.shields.io/github/license/marcelo-schreiber/weather?style=social&logo=github)](https://github.com/marcelo-schreiber/weather/blob/master/LICENSE)  
-![README in portugese](https://github.com/marcelo-schreiber/weather/blob/master/README.pt.md)  
+[README in portuguese](https://github.com/marcelo-schreiber/weather/blob/master/README.pt.md)  
 
 This project logs weather data (temperature and humidity) using an **ESP32 Wemos Lolin32 with a DHT22 sensor and display**. Data is sent to a **Next.js web application** hosted on **Vercel** for storage and visualization. The backend uses **Supabase** as its database, and a cron job is set up to manage daily data resets.
 
