@@ -74,27 +74,27 @@ The system architecture is illustrated below:
 
 4. Inside the `webapp/` folder, install the dependencies:
 
+      ```bash
+      npm install --legacy-peer-deps
+      ```
+
+5. To run the application locally, use the following command:
+
     ```bash
-    npm install --legacy-peer-deps
+      npm run dev
     ```
 
-5.1. To run the application locally, use the following command:
+6. To deploy the application to Vercel, use the following command:
 
-  ```bash
-    npm run dev
-  ```
+    ```bash
+      vercel
+    ```
 
-5.2. To deploy the application to Vercel, use the following command:
+7. Configure a cron job using [cron-job.org](https://cron-job.org/en/) to send a GET request to `/api/cron` daily at 00:01, make sure to add a header with the CRON_SECRET
 
-  ```bash
-    vercel
-  ```
-
-6. Configure a cron job using [cron-job.org](https://cron-job.org/en/) to send a GET request to `/api/cron` daily at 00:01, make sure to add a header with the CRON_SECRET
-
-```bash
-  Authorization: Bearer <CRON_SECRET>
-```
+    ```bash
+      Authorization: Bearer <CRON_SECRET>
+    ```
 
 ---
 
