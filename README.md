@@ -144,3 +144,13 @@ The system architecture is illustrated below:
 ## Feedback
 
 If you have feedback or suggestions, feel free to reach out at `marcelorissette15@gmail.com`.
+
+## Todo list
+
+- [ ] Add other sensors
+- [ ] Auto reconnect when the ESP32 is disconnected
+- [ ] When the ESP32 is disconnected, save the data in a buffer and send it when it reconnects
+- [ ] Add testing to the web application
+- [ ] Add a Curitiba weather forecast to the web application
+- [ ] When air quality sensors are added, add a warning when the air quality is bad (for example, when the CO2 level is high)
+- [ ] Make the ESP32 a webserver with a configuration page and a page to see the real-time data
