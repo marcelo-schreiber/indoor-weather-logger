@@ -59,9 +59,9 @@ The system architecture is illustrated below:
 
 1. Clone the repository and navigate to the `webapp/` directory:
 
-  ```bash
-   git clone https://github.com/marcelo-schreiber/weather.git
-    cd weather/webapp
+    ```bash
+      git clone https://github.com/marcelo-schreiber/weather.git
+      cd weather/webapp
     ```
 
 2. Go to the `webapp/` directory and create a .env file based on .env.example:
@@ -80,20 +80,20 @@ The system architecture is illustrated below:
 
 5.1. To run the application locally, use the following command:
 
-    ```bash
+  ```bash
     npm run dev
-    ```
+  ```
 
 5.2. To deploy the application to Vercel, use the following command:
 
-    ```bash
+  ```bash
     vercel
-    ```
+  ```
 
 6. Configure a cron job using [cron-job.org](https://cron-job.org/en/) to send a GET request to `/api/cron` daily at 00:01, make sure to add a header with the CRON_SECRET
 
 ```bash
-Authorization: Bearer <CRON_SECRET>
+  Authorization: Bearer <CRON_SECRET>
 ```
 
 ---
