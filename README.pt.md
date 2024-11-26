@@ -138,7 +138,7 @@ A arquitetura do sistema é ilustrada abaixo:
 
 ## Tecnologias
 
-- **ESP32 Wemos Lolin32**: Placa microcontroladora com Wi-Fi e Bluetooth integrados.
+- **ESP32 Wemos Lolin32**: microcontrolador com Wi-Fi e Bluetooth integrados.
 - **Sensor DHT22**: Sensor digital de temperatura e umidade.
 - **Next.js**: Framework React para construção de aplicações web.
 - **Vercel**: Plataforma de cloud para sites estáticos e funções serverless.
