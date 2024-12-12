@@ -14,13 +14,13 @@ export async function POST(request: NextRequest) {
 
   const body = await request.json();
 
-  const { temperature, humidity, apiKey } = body;
+  const { temperature, humidity, pressure, airQuality, apiKey } = body;
 
   if (apiKey !== process.env.API_KEY) {
     return new Response("Invalid API key", { status: 401 });
   }
 
-  if (!temperature || !humidity) {
+  if (!temperature || !humidity || !airQuality || !pressure) {
     return new Response("Invalid request", { status: 400 });
   }
 
@@ -37,6 +37,8 @@ export async function POST(request: NextRequest) {
     {
       temperature,
       humidity,
+      air_quality: airQuality,
+      pressure
     },
   ]);
 
