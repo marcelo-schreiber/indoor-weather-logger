@@ -128,7 +128,7 @@ export function ToxicGasesChart({
               tickLine={false}
               axisLine={{ stroke: "#f5f5f5" }}
               unit="ppm"
-              domain={[0, 1000]}
+              domain={[0, 1200]}
               tickCount={5}
             />
             <ChartTooltip

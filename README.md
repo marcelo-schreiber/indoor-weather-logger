@@ -3,7 +3,7 @@
 [![MIT License](https://img.shields.io/github/license/marcelo-schreiber/weather?style=social&logo=github)](https://github.com/marcelo-schreiber/weather/blob/master/LICENSE)  
 [README in portuguese](https://github.com/marcelo-schreiber/weather/blob/master/README.pt.md)  
 
-This project logs weather data (temperature and humidity) using an **ESP32 Wemos Lolin32 with a DHT22 sensor and display**. Data is sent to a **Next.js web application** hosted on **Vercel** for storage and visualization. The backend uses **Supabase** as its database, and a cron job is set up to manage daily data resets.
+This project logs weather data (temperature, humidity, pressure, and air quality) using an **ESP32 Wemos Lolin32** with **DHT22**, **BMP280**, and **MQ135** sensors. Data is sent to a **Next.js web application** hosted on **Vercel** for storage and visualization. The backend uses **Supabase** as its database, and a cron job is set up to manage daily data resets.
 
 ---
 
@@ -45,13 +45,22 @@ The system architecture is illustrated below:
    - Connect the DHT22 sensor to the ESP32 board as follows:
      - VCC -> 3.3V
      - GND -> GND
-     - DATA -> 15 (DHT_PIN)
-  
-     - Connect the ESP32 board to your computer using a USB cable.
-    [![ESP32 DHT22 Wiring](docs/circuit.png)](docs/circuit.png)
+     - DATA -> 13
+   - Connect the BMP280 sensor to the ESP32 board as follows:
+     - VCC -> 3.3V
+     - GND -> GND
+     - SCL -> 25 (I2C SCL)
+     - SDA -> 26 (I2C SDA)
+   - Connect the MQ135 sensor to the ESP32 board as follows:
+     - VCC -> SVN
+     - GND -> GND
+     - AOUT -> 39
+
+     Refer to [this guide](https://randomnerdtutorials.com/esp32-built-in-oled-ssd1306/) for additional ESP32 setup tips.
 
 1. Install the required libraries in the Arduino IDE:
    - [DHT Sensor Library](https://github.com/adafruit/DHT-sensor-library)
+   - [BMP280 Library](https://github.com/adafruit/Adafruit_BMP280_Library)
    - [WiFi](https://www.arduino.cc/en/Reference/WiFi)
 
 2. Open the `esp32.ino` file in the Arduino IDE and update the placeholders with your credentials:
@@ -70,40 +79,40 @@ The system architecture is illustrated below:
 1. Clone the repository and navigate to the `webapp/` directory:
 
     ```bash
-      git clone https://github.com/marcelo-schreiber/weather.git
-      cd weather/webapp
+    git clone https://github.com/marcelo-schreiber/weather.git
+    cd weather/webapp
     ```
 
-2. Go to the `webapp/` directory and create a .env file based on .env.example:
+2. Go to the `webapp/` directory and create a `.env` file based on `.env.example`:
 
     ```bash
     cp .env.example .env
     ```
 
-3. Update the `.env` file with your credentials
+3. Update the `.env` file with your credentials.
 
 4. Inside the `webapp/` folder, install the dependencies:
 
-      ```bash
-      npm install --legacy-peer-deps
-      ```
+    ```bash
+    npm install --legacy-peer-deps
+    ```
 
 5. To run the application locally, use the following command:
 
     ```bash
-      npm run dev
+    npm run dev
     ```
 
 6. To deploy the application to Vercel, use the following command:
 
     ```bash
-      vercel
+    vercel
     ```
 
-7. Configure a cron job using [cron-job.org](https://cron-job.org/en/) to send a GET request to `/api/cron` daily at 00:01, make sure to add a header with the CRON_SECRET
+7. Configure a cron job using [cron-job.org](https://cron-job.org/en/) to send a GET request to `/api/cron` daily at 00:01. Make sure to add a header with the CRON_SECRET:
 
     ```bash
-      Authorization: Bearer <CRON_SECRET>
+    Authorization: Bearer <CRON_SECRET>
     ```
 
 ---
@@ -112,14 +121,20 @@ The system architecture is illustrated below:
 
 ### ESP32 Data Logging
 
-- The ESP32 collects temperature and humidity data every minute using a DHT22 sensor.
+- The ESP32 collects data every minute from the DHT22, BMP280, and MQ135 sensors.
+  - DHT22: Temperature and humidity.
+  - BMP280: Atmospheric pressure.
+  - MQ135: Air quality in ppm.
+
 - The collected data is sent as a `POST` request to the `/api` endpoint of the deployed Next.js application. The JSON payload structure:
 
    ```json
    {
      "apiKey": "<API-KEY>",
      "temperature": 25.5,
-     "humidity": 60.2
+     "humidity": 60.2,
+     "pressure": 1013.25,
+     "airQuality": 120
    }
    ```
 
@@ -129,21 +144,29 @@ The system architecture is illustrated below:
 
 - A cron job sends a GET request to the `/api/cron` endpoint daily at 00:01.
 - The `/api/cron` handler:
-  - Calculates the mean and median for the temperature and humidity data in the last 24 hours.
+  - Calculates the mean and median for the data collected in the last 24 hours.
   - Resets the daily data into a single summary record.
+
+---
 
 ## Technologies
 
 - **ESP32 Wemos Lolin32**: Microcontroller board with built-in Wi-Fi and Bluetooth.
 - **DHT22 Sensor**: Digital temperature and humidity sensor.
+- **BMP280 Sensor**: Atmospheric pressure sensor.
+- **MQ135 Sensor**: Air quality sensor.
 - **Next.js**: React framework for building web applications.
 - **Vercel**: Cloud platform for static sites and serverless functions.
 - **Supabase**: Open-source Firebase alternative for databases and authentication.
 - **Cron-job.org**: Free online cron job service.
 
+---
+
 ## Feedback
 
 If you have feedback or suggestions, feel free to reach out at `marcelorissette15@gmail.com`.
+
+---
 
 ## Todo list
 
@@ -151,5 +174,5 @@ If you have feedback or suggestions, feel free to reach out at `marcelorissette1
 - [x] Auto reconnect when the ESP32 is disconnected
 - [ ] Add testing to the web application
 - [ ] Add a Curitiba weather forecast to the web application
-- [ ] When air quality sensors are added, add a warning when the air quality is bad (for example, when the CO2 level is high)
-- [ ] Make the ESP32 a webserver with a configuration page and a page to see the real-time data
+- [ ] When air quality sensors are added, add a warning when the air quality is bad (e.g., when the CO2 level is high)
+- [ ] Make the ESP32 a webserver with a configuration page and a page to see the real-time data.
