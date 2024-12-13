@@ -110,18 +110,16 @@ void logAndSendSensorData() {
   int ppm = analogRead(PPMPIN);
   float h = dht.readHumidity();
   float dhtTemp = dht.readTemperature();
-  float bmpTemp = bmp.readTemperature();
   float pressure = bmp.readPressure() / 100.0F; // Convert Pa to hPa
-  float meanTemp = (dhtTemp + bmpTemp) / 2.0;   // Mean temperature
 
   // Validate sensor readings
-  if (isnan(h) || isnan(dhtTemp) || isnan(bmpTemp) || isnan(pressure)) {
+  if (isnan(h) || isnan(dhtTemp) || isnan(pressure)) {
     Serial.println(F("Sensor read failed!"));
     return;
   }
 
-  logSensorReadings(h, meanTemp, pressure, ppm);
-  sendDataToServer(meanTemp, h, pressure, ppm);
+  logSensorReadings(h, dhtTemp, pressure, ppm);
+  sendDataToServer(dhtTemp, h, pressure, ppm);
 }
 
 // Log sensor readings to Serial Monitor
