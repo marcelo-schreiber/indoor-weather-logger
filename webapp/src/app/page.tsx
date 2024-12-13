@@ -32,7 +32,7 @@ export default async function Home() {
   const meanTempAndHumidity = dailyData[dailyData.length - 1];
 
   return (
-    <main className="flex flex-col justify-center px-10 pt-10">
+    <main className="flex flex-col justify-center p-10 space-y-5">
       <Chart
         chartData={allData}
         dailyData={dailyData}

@@ -68,8 +68,8 @@ export function Chart({
     <Card>
       <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
         <div className="grid flex-1 gap-1 text-center sm:text-left">
-          <CardTitle> Temperatura e Umidade | Curitiba - PR</CardTitle>
-          <CardDescription> Projeto do ramo estudantil IEEE </CardDescription>
+          <CardTitle> Temperatura e Umidade </CardTitle>
+          <CardDescription> Temperatura, Umidade e Índice de calor </CardDescription>
         </div>
         <Select value={timeRange} onValueChange={setTimeRange}>
           <SelectTrigger

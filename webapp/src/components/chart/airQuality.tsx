@@ -6,6 +6,7 @@ import { Area, CartesianGrid, XAxis, ComposedChart, YAxis } from "recharts";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -60,7 +61,10 @@ export function ToxicGasesChart({
     <Card>
       <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
         <div className="grid flex-1 gap-1 text-center sm:text-left">
-          <CardTitle>Gases tóxicos | Curitiba - PR</CardTitle>
+          <CardTitle>Gases tóxicos </CardTitle>
+          <CardDescription>
+          Amônia, dióxido de carbono, benzeno, óxido nítrico, fumaça e álcool.
+          </CardDescription>
         </div>
         <Select value={timeRange} onValueChange={setTimeRange}>
           <SelectTrigger
