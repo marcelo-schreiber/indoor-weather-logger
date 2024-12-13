@@ -3,6 +3,8 @@
 import { Chart } from "@/components/chart/tempAndHumidity";
 import { createClient } from "@/lib/supabase";
 import WeatherCard from "@/components/card/latestTempAndHumidity";
+import { ToxicGasesChart } from "@/components/chart/airQuality";
+import { PressureChart } from "@/components/chart/pressure";
 
 type WeatherData = {
   created_at: string;
@@ -38,13 +40,17 @@ export default async function Home() {
   return (
     <main className="flex flex-col justify-center px-10 pt-10">
       <Chart
-        chartData={allData as WeatherData}
-        dailyData={dailyData as WeatherData}
+        chartData={allData}
+        dailyData={dailyData}
       />
+      <ToxicGasesChart chartData={allData} dailyData={dailyData} />
+      <PressureChart chartData={allData} dailyData={dailyData} />
       <div className="flex justify-center mt-10 gap-5 flex-col md:flex-row items-center">
         <WeatherCard
           title="Última Leitura"
           humidity={latestTempAndHumidity.humidity}
+          pressure={latestTempAndHumidity.pressure}
+          airQuality={latestTempAndHumidity.air_quality}
           temperature={latestTempAndHumidity.temperature}
           lastUpdated={latestTempAndHumidity.created_at}
         />
@@ -52,6 +58,8 @@ export default async function Home() {
           title="Leitura média do dia"
           humidity={meanTempAndHumidity.humidity}
           temperature={meanTempAndHumidity.temperature}
+          airQuality={meanTempAndHumidity.air_quality}
+          pressure={meanTempAndHumidity.pressure}
           lastUpdated={latestTempAndHumidity.created_at}
         />
       </div>
