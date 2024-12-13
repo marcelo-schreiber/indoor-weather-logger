@@ -4,7 +4,6 @@ import {
   Thermometer,
   Droplets,
   Flame,
-  AirVent,
   ArrowBigDown,
   RadiationIcon,
 } from "lucide-react";

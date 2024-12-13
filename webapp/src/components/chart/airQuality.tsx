@@ -6,7 +6,6 @@ import { Area, CartesianGrid, XAxis, ComposedChart, YAxis } from "recharts";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -141,7 +140,7 @@ export function ToxicGasesChart({
                       second: "numeric",
                     });
                   }}
-                  formatter={(value, name, item) => {
+                  formatter={(value, name) => {
                     return (
                       <>
                         <div

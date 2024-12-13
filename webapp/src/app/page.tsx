@@ -6,12 +6,6 @@ import WeatherCard from "@/components/card/latestTempAndHumidity";
 import { ToxicGasesChart } from "@/components/chart/airQuality";
 import { PressureChart } from "@/components/chart/pressure";
 
-type WeatherData = {
-  created_at: string;
-  temperature: number;
-  humidity: number;
-}[];
-
 export default async function Home() {
   const supabase = await createClient();
 
