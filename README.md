@@ -1,7 +1,7 @@
-# Weather Logger System
+# Indoor Weather Logger
 
-[![MIT License](https://img.shields.io/github/license/marcelo-schreiber/weather?style=social&logo=github)](https://github.com/marcelo-schreiber/weather/blob/master/LICENSE)  
-[README in portuguese](https://github.com/marcelo-schreiber/weather/blob/master/README.pt.md)  
+[![MIT License](https://img.shields.io/github/license/marcelo-schreiber/indoor-weather-logger?style=social&logo=github)](https://github.com/marcelo-schreiber/indoor-weather-logger/blob/master/LICENSE)  
+[README in portuguese](https://github.com/marcelo-schreiber/indoor-weather-logger/blob/master/README.pt.md)  
 
 This project logs weather data (temperature, humidity, pressure, and air quality) using an **ESP32 Wemos Lolin32** with **DHT22**, **BMP280**, and **MQ135** sensors. Data is sent to a **Next.js web application** hosted on **Vercel** for storage and visualization. The backend uses **Supabase** as its database, and a cron job is set up to manage daily data resets.
 
@@ -173,6 +173,5 @@ If you have feedback or suggestions, feel free to reach out at `marcelorissette1
 - [x] Add other sensors
 - [x] Auto reconnect when the ESP32 is disconnected
 - [ ] Add testing to the web application
-- [ ] Add a Curitiba weather forecast to the web application
 - [ ] When air quality sensors are added, add a warning when the air quality is bad (e.g., when the CO2 level is high)
 - [ ] Make the ESP32 a webserver with a configuration page and a page to see the real-time data.
