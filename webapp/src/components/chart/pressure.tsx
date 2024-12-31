@@ -3,6 +3,14 @@
 import * as React from "react";
 import { Area, CartesianGrid, XAxis, ComposedChart, YAxis } from "recharts";
 
+import { DownloadIcon } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../ui/tooltip";
+
 import {
   Card,
   CardContent,
@@ -56,6 +64,33 @@ export function PressureChart({
     }
   }, [timeRange, chartData, dailyData]);
 
+  const exportToCSV = () => {
+    if (!filteredData) {
+      return;
+    }
+    const csvData = filteredData.map((row) => ({
+      created_at: row.created_at,
+      pressure: row.pressure,
+    }));
+
+    // remove null values
+    csvData.filter((row) => row.pressure !== null && row.created_at !== null);
+
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      ["created_at,pressure"]
+        .concat(csvData.map((row) => `${row.created_at},${row.pressure}`))
+        .join("\n");
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "pressure_data.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <Card>
       <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
@@ -78,6 +113,18 @@ export function PressureChart({
             </SelectItem>
           </SelectContent>
         </Select>
+        <TooltipProvider>
+          <Tooltip delayDuration={175}>
+            <TooltipTrigger
+              onClick={exportToCSV}
+              className="ml-4"
+              aria-label="Export to CSV"
+            >
+              <DownloadIcon size={16} />
+            </TooltipTrigger>
+            <TooltipContent>Exportar como CSV</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-4 sm:pt-6">
         <ChartContainer

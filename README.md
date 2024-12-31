@@ -173,5 +173,6 @@ If you have feedback or suggestions, feel free to reach out at `marcelorissette1
 - [x] Add other sensors
 - [x] Auto reconnect when the ESP32 is disconnected
 - [ ] Add testing to the web application
+- [ ] Export as CSV or XLSX
 - [ ] When air quality sensors are added, add a warning when the air quality is bad (e.g., when the CO2 level is high)
 - [ ] Make the ESP32 a webserver with a configuration page and a page to see the real-time data.

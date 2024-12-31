@@ -25,6 +25,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { DownloadIcon } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../ui/tooltip";
 
 const chartConfig = {
   air_quality: {
@@ -57,13 +64,40 @@ export function ToxicGasesChart({
     }
   }, [timeRange, chartData, dailyData]);
 
+  const exportToCSV = () => {
+    if (!filteredData) {
+      return;
+    }
+    const csvData = filteredData.map((row) => ({
+      created_at: row.created_at,
+      air_quality: row.air_quality,
+    }));
+
+    // remove null values
+    csvData.filter((row) => row.air_quality !== null && row.created_at !== null);
+
+    const csvContent =
+      "data:text/csv;charset=utf-8," +
+      ["created_at,air_quality"]
+        .concat(csvData.map((row) => `${row.created_at},${row.air_quality}`))
+        .join("\n");
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "toxic_gases_data.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <Card>
       <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
         <div className="grid flex-1 gap-1 text-center sm:text-left">
           <CardTitle>Gases tóxicos </CardTitle>
           <CardDescription>
-          Amônia, dióxido de carbono, benzeno, óxido nítrico, fumaça e álcool.
+            Amônia, dióxido de carbono, benzeno, óxido nítrico, fumaça e álcool.
           </CardDescription>
         </div>
         <Select value={timeRange} onValueChange={setTimeRange}>
@@ -82,6 +116,18 @@ export function ToxicGasesChart({
             </SelectItem>
           </SelectContent>
         </Select>
+        <TooltipProvider>
+          <Tooltip delayDuration={175}>
+            <TooltipTrigger
+              onClick={exportToCSV}
+              className="ml-4"
+              aria-label="Export to CSV"
+            >
+              <DownloadIcon size={16} />
+            </TooltipTrigger>
+            <TooltipContent>Exportar como CSV</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-4 sm:pt-6">
         <ChartContainer
@@ -180,4 +226,3 @@ export function ToxicGasesChart({
     </Card>
   );
 }
-
