@@ -87,7 +87,7 @@ A arquitetura do sistema é ilustrada abaixo:
 4. Dentro do diretório `webapp/`, instale as dependências:
 
     ```bash
-    npm install --legacy-peer-deps
+    npm install --force
     ```
 
 5. Para rodar a aplicação localmente, use o comando:
@@ -109,6 +109,20 @@ A arquitetura do sistema é ilustrada abaixo:
     ```
 
 ---
+
+## Testando o Frontend
+
+Usando o Storybook, você pode testar os componentes de forma isolada, isso foi usado porque é uma maneira simples de testar os componentes sem precisar executar toda a aplicação.
+
+Os componentes são todos os cards e gráficos que são exibidos na página principal.
+
+1. Para executar o Storybook, use o seguinte comando:
+
+```bash
+npm run storybook
+```
+
+O Storybook estará disponível em `http://localhost:6006/`.
 
 ## Como Funciona
 

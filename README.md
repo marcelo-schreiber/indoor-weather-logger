@@ -129,11 +129,7 @@ The components are all the cards and charts that are displayed on the main page.
 npm run storybook
 ```
 
-1. To build the Storybook, use the following command:
-
-```bash
-npm run build-storybook
-```
+The Storybook will be available at `http://localhost:6006/`.
 
 ## How It Works
 
