@@ -94,7 +94,7 @@ The system architecture is illustrated below:
 4. Inside the `webapp/` folder, install the dependencies:
 
     ```bash
-    npm install --force
+    npm install --force # because of storybook and react 19
     ```
 
 5. To run the application locally, use the following command:
