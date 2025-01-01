@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { Chart } from './tempAndHumidity';
+import { Chart } from "./tempAndHumidity";
 
 const meta = {
   component: Chart,
@@ -26,5 +26,5 @@ export const Default: Story = {
       { created_at: "2024-12-28", temperature: 22.8, humidity: 62 },
       { created_at: "2024-12-29", temperature: 23.1, humidity: 61 },
     ],
-  }
+  },
 };

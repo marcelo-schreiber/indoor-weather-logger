@@ -83,12 +83,21 @@ export function Chart({
     }));
 
     // remove null values
-    csvData.filter((row) => row.humidity !== null && row.created_at !== null && row.temperature !== null);
+    csvData.filter(
+      (row) =>
+        row.humidity !== null &&
+        row.created_at !== null &&
+        row.temperature !== null,
+    );
 
     const csvContent =
       "data:text/csv;charset=utf-8," +
       ["created_at,humidity,temperature"]
-        .concat(csvData.map((row) => `${row.created_at},${row.humidity},${row.temperature}`))
+        .concat(
+          csvData.map(
+            (row) => `${row.created_at},${row.humidity},${row.temperature}`,
+          ),
+        )
         .join("\n");
 
     const encodedUri = encodeURI(csvContent);
@@ -105,7 +114,10 @@ export function Chart({
       <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
         <div className="grid flex-1 gap-1 text-center sm:text-left">
           <CardTitle> Temperatura e Umidade </CardTitle>
-          <CardDescription> Temperatura, Umidade e Índice de calor </CardDescription>
+          <CardDescription>
+            {" "}
+            Temperatura, Umidade e Índice de calor{" "}
+          </CardDescription>
         </div>
         <Select value={timeRange} onValueChange={setTimeRange}>
           <SelectTrigger
@@ -243,7 +255,7 @@ export function Chart({
                             <div className="ml-auto flex items-baseline gap-0.5 font-mono font-medium tabular-nums text-foreground">
                               {calculateHeatIndex(
                                 item.payload.temperature,
-                                item.payload.humidity
+                                item.payload.humidity,
                               ).toFixed(2)}
                             </div>
                           </div>

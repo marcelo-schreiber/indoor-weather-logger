@@ -43,7 +43,7 @@ export async function GET(req: NextRequest) {
     mean_pressure,
     median_pressure,
     mean_air_quality,
-    median_air_quality
+    median_air_quality,
   } = meanMeadian[0];
 
   // Insert the calculated values into the database
@@ -56,7 +56,7 @@ export async function GET(req: NextRequest) {
       mean_pressure,
       median_pressure,
       mean_air_quality,
-      median_air_quality
+      median_air_quality,
     },
   ]);
 

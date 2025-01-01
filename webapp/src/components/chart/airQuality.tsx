@@ -74,7 +74,9 @@ export function ToxicGasesChart({
     }));
 
     // remove null values
-    csvData.filter((row) => row.air_quality !== null && row.created_at !== null);
+    csvData.filter(
+      (row) => row.air_quality !== null && row.created_at !== null,
+    );
 
     const csvContent =
       "data:text/csv;charset=utf-8," +

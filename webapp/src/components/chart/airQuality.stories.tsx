@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { ToxicGasesChart } from './airQuality';
+import { ToxicGasesChart } from "./airQuality";
 
 const meta = {
   component: ToxicGasesChart,
@@ -26,5 +26,5 @@ export const Default: Story = {
       { created_at: "2024-12-28", air_quality: 350 },
       { created_at: "2024-12-29", air_quality: 450 },
     ],
-  }
+  },
 };

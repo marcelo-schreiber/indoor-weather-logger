@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
       temperature,
       humidity,
       air_quality: airQuality,
-      pressure
+      pressure,
     },
   ]);
 
